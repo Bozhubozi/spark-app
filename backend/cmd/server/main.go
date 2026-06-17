@@ -68,11 +68,12 @@ func main() {
 	dfaFilter := util.BuildDFAFilter()
 	wsH := handler.NewWSHandler(wsHub, chatSvc, authSvc, chatRepo, dfaFilter)
 
-	// Rate limiters
-	authLimiter := middleware.NewRateLimiter(5, 10)    // 5 req/s, burst 10
+	// Rate limiters — auth uses in-memory (simpler, smaller scale)
+	authLimiter := middleware.NewRateLimiter(5, 10)
 	authLimiter.StartCleanup(5 * time.Minute)
-	generalLimiter := middleware.NewRateLimiter(20, 50) // 20 req/s, burst 50
-	generalLimiter.StartCleanup(5 * time.Minute)
+
+	// General API limiter uses Redis (distributed, survives restarts)
+	generalLimiter := middleware.NewRedisRateLimiter(rdb, 30, 100, time.Second)
 
 	r := gin.Default()
 
