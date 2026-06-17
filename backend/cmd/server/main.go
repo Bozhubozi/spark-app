@@ -77,6 +77,9 @@ func main() {
 
 	r := gin.Default()
 
+	// Request ID — first middleware so all responses get X-Request-ID
+	r.Use(middleware.RequestID())
+
 	// CORS for web dev
 	r.Use(func(c *gin.Context) {
 		c.Header("Access-Control-Allow-Origin", "*")
