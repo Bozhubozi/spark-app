@@ -12,6 +12,11 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
       - ./backend/migrations:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U spark"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   redis:
     image: redis:7-alpine
@@ -19,6 +24,33 @@ services:
       - "6379:6379"
     volumes:
       - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SERVER_PORT: "8080"
+      DB_HOST: postgres
+      DB_PORT: "5432"
+      DB_USER: spark
+      DB_PASSWORD: spark123
+      DB_NAME: spark
+      REDIS_ADDR: redis:6379
+      JWT_SECRET: change-me-in-production
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
 
 volumes:
   pgdata:
