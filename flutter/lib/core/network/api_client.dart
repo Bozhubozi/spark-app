@@ -48,4 +48,12 @@ class _AuthInterceptor extends Interceptor {
     }
     handler.next(options);
   }
+
+  @override
+  void onError(DioException err, ErrorInterceptorHandler handler) {
+    if (err.response?.statusCode == 401) {
+      client.clearToken();
+    }
+    handler.next(err);
+  }
 }
