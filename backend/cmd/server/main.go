@@ -88,8 +88,39 @@ func main() {
 		c.Next()
 	})
 
-	// Health
-	r.GET("/health", func(c *gin.Context) { c.JSON(200, gin.H{"status": "ok"}) })
+	// Health check with DB + Redis verification
+	r.GET("/health", func(c *gin.Context) {
+		healthy := true
+		checks := gin.H{}
+
+		sqlDB, _ := db.DB()
+		if sqlDB != nil {
+			if err := sqlDB.Ping(); err != nil {
+				checks["db"] = "error: " + err.Error()
+				healthy = false
+			} else {
+				checks["db"] = "ok"
+			}
+		}
+
+		if err := rdb.Ping(context.Background()).Err(); err != nil {
+			checks["redis"] = "error: " + err.Error()
+			healthy = false
+		} else {
+			checks["redis"] = "ok"
+		}
+
+		status := 200
+		if !healthy {
+			status = 503
+		}
+		c.JSON(status, gin.H{"status": map[bool]string{true: "ok", false: "degraded"}[healthy], "checks": checks})
+	})
+
+	// Prometheus-style metrics (lightweight, no external dependency)
+	metrics := middleware.NewMetrics()
+	r.Use(metrics.Collect())
+	r.GET("/metrics", metrics.Handler())
 
 	// Public auth (rate-limited per IP+path)
 	auth := r.Group("/api/v1/auth")
