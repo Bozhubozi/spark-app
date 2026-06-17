@@ -20,10 +20,11 @@ type MatchHandler struct {
 	zodiacSvc    *service.ZodiacService
 	icebreakerSvc *service.IcebreakerService
 	interestRepo  *repository.InterestRepo
+	chatRepo      *repository.ChatRepo
 }
 
-func NewMatchHandler(svc *service.MatchService, wsHub *service.WSHub, ur *repository.UserRepo, zs *service.ZodiacService, is *service.IcebreakerService, ir *repository.InterestRepo) *MatchHandler {
-	return &MatchHandler{svc: svc, wsHub: wsHub, userRepo: ur, zodiacSvc: zs, icebreakerSvc: is, interestRepo: ir}
+func NewMatchHandler(svc *service.MatchService, wsHub *service.WSHub, ur *repository.UserRepo, zs *service.ZodiacService, is *service.IcebreakerService, ir *repository.InterestRepo, cr *repository.ChatRepo) *MatchHandler {
+	return &MatchHandler{svc: svc, wsHub: wsHub, userRepo: ur, zodiacSvc: zs, icebreakerSvc: is, interestRepo: ir, chatRepo: cr}
 }
 
 func (h *MatchHandler) GetCandidates(c *gin.Context) {
@@ -80,6 +81,12 @@ func (h *MatchHandler) Swipe(c *gin.Context) {
 	if match != nil && match.Status == model.MatchStatusMatched {
 		result["matched"] = true
 		result["match_id"] = match.ID
+
+		// Auto-create chat room on match
+		room, _ := h.chatRepo.FindOrCreateRoom(c.Request.Context(), uid, req.TargetUserID)
+		if room != nil {
+			result["room_id"] = room.ID
+		}
 
 		// Generate icebreaker messages
 		user, _ := h.userRepo.FindByID(c.Request.Context(), uid)

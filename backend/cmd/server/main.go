@@ -63,7 +63,7 @@ func main() {
 	// Handlers
 	authH := handler.NewAuthHandler(authSvc)
 	userH := handler.NewUserHandler(userRepo, interestRepo, personalityReportSvc, zodiacSvc, horoscopeSvc)
-	matchH := handler.NewMatchHandler(matchSvc, wsHub, userRepo, zodiacSvc, icebreakerSvc, interestRepo)
+	matchH := handler.NewMatchHandler(matchSvc, wsHub, userRepo, zodiacSvc, icebreakerSvc, interestRepo, chatRepo)
 	chatH := handler.NewChatHandler(chatSvc, chatRepo, wsHub)
 	dfaFilter := util.BuildDFAFilter()
 	wsH := handler.NewWSHandler(wsHub, chatSvc, authSvc, chatRepo, dfaFilter)
