@@ -1,0 +1,30 @@
+name: spark_app
+description: Spark - Gen Z Social Dating App
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^2.4.9
+  go_router: ^13.0.0
+  dio: ^5.4.0
+  web_socket_channel: ^2.4.0
+  flutter_secure_storage: ^9.0.0
+  uuid: ^4.2.2
+  share_plus: ^9.0.0
+  path_provider: ^2.1.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.1
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/avatars/

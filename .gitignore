@@ -1,0 +1,27 @@
+# Flutter
+flutter/**/build/
+flutter/**/.dart_tool/
+flutter/**/.packages
+flutter/**/.flutter-plugins
+flutter/**/.flutter-plugins-dependencies
+flutter/**/*.iml
+flutter/**/.idea/
+flutter/**/.metadata
+
+# Go
+backend/tmp/
+backend/vendor/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+*.local
