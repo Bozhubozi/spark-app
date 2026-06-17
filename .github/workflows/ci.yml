@@ -1,0 +1,84 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_USER: spark
+          POSTGRES_PASSWORD: spark123
+          POSTGRES_DB: spark
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.22"
+
+      - name: Run migrations
+        working-directory: backend
+        run: |
+          PGPASSWORD=spark123 psql -h localhost -U spark -d spark -f migrations/001_init.sql
+        env:
+          PGPASSWORD: spark123
+
+      - name: Go vet
+        working-directory: backend
+        run: go vet ./internal/...
+
+      - name: Go test
+        working-directory: backend
+        env:
+          DB_HOST: localhost
+          DB_USER: spark
+          DB_PASSWORD: spark123
+          DB_NAME: spark
+          REDIS_ADDR: localhost:6379
+        run: go test ./internal/... -v -count=1
+
+  flutter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.38.10"
+          channel: stable
+
+      - name: Install dependencies
+        working-directory: flutter
+        run: flutter pub get
+
+      - name: Analyze
+        working-directory: flutter
+        run: flutter analyze
+
+      - name: Run tests
+        working-directory: flutter
+        run: flutter test
