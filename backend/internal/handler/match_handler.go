@@ -14,10 +14,10 @@ import (
 )
 
 type MatchHandler struct {
-	svc          *service.MatchService
-	wsHub        *service.WSHub
-	userRepo     *repository.UserRepo
-	zodiacSvc    *service.ZodiacService
+	svc           *service.MatchService
+	wsHub         *service.WSHub
+	userRepo      *repository.UserRepo
+	zodiacSvc     *service.ZodiacService
 	icebreakerSvc *service.IcebreakerService
 	interestRepo  *repository.InterestRepo
 	chatRepo      *repository.ChatRepo

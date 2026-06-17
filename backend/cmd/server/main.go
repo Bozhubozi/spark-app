@@ -12,9 +12,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/redis/go-redis/v9"
 	"github.com/spark-app/backend/internal/config"
-	"github.com/spark-app/backend/internal/model"
 	"github.com/spark-app/backend/internal/handler"
 	"github.com/spark-app/backend/internal/middleware"
+	"github.com/spark-app/backend/internal/model"
 	"github.com/spark-app/backend/internal/repository"
 	"github.com/spark-app/backend/internal/service"
 	"github.com/spark-app/backend/internal/util"
@@ -153,20 +153,20 @@ func main() {
 		api.POST("/user/device-token", userH.SaveDeviceToken)
 		api.POST("/user/account/cancel", userH.DeleteAccount)
 		api.POST("/user/report", userH.ReportUser)
-			api.POST("/user/account/restore", userH.RestoreAccount)
+		api.POST("/user/account/restore", userH.RestoreAccount)
 
 		api.GET("/match/likes-count", matchH.LikesCount)
-			api.GET("/match/likers", matchH.GetLikers)
-			api.GET("/match/remaining", matchH.RemainingSwipes)
-			api.GET("/match/blocked", matchH.GetBlocked)
-			api.POST("/match/unblock", matchH.Unblock)
-			api.GET("/match/candidates", matchH.GetCandidates)
+		api.GET("/match/likers", matchH.GetLikers)
+		api.GET("/match/remaining", matchH.RemainingSwipes)
+		api.GET("/match/blocked", matchH.GetBlocked)
+		api.POST("/match/unblock", matchH.Unblock)
+		api.GET("/match/candidates", matchH.GetCandidates)
 		api.POST("/match/swipe", matchH.Swipe)
 		api.GET("/match/list", matchH.GetMatches)
 		api.GET("/match/zodiac-compat/:target_user_id", matchH.ZodiacCompat)
 
 		api.POST("/chat/rooms", chatH.GetOrCreateRoom)
-			api.GET("/chat/rooms", chatH.GetRooms)
+		api.GET("/chat/rooms", chatH.GetRooms)
 		api.GET("/chat/rooms/:room_id/messages", chatH.GetMessages)
 		api.POST("/chat/rooms/:room_id/read", chatH.MarkRead)
 	}

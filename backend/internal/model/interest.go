@@ -20,11 +20,11 @@ type UserInterest struct {
 }
 
 type PersonalityQuestion struct {
-	ID           int                  `gorm:"primaryKey" json:"id"`
-	Dimension    string               `gorm:"size:50;not null" json:"dimension"`
-	QuestionText string               `gorm:"size:500;not null" json:"question_text"`
-	SortOrder    int                  `json:"sort_order"`
-	Options      []PersonalityOption  `gorm:"foreignKey:QuestionID" json:"options"`
+	ID           int                 `gorm:"primaryKey" json:"id"`
+	Dimension    string              `gorm:"size:50;not null" json:"dimension"`
+	QuestionText string              `gorm:"size:500;not null" json:"question_text"`
+	SortOrder    int                 `json:"sort_order"`
+	Options      []PersonalityOption `gorm:"foreignKey:QuestionID" json:"options"`
 }
 
 type PersonalityOption struct {
@@ -64,10 +64,10 @@ type AvatarComponent struct {
 }
 
 type DeviceToken struct {
-	ID       int       `gorm:"primaryKey" json:"id"`
-	UserID   uuid.UUID `gorm:"not null;index" json:"user_id"`
-	Token    string    `gorm:"size:500;not null" json:"token"`
-	Platform string    `gorm:"size:20;not null" json:"platform"`
+	ID        int       `gorm:"primaryKey" json:"id"`
+	UserID    uuid.UUID `gorm:"not null;index" json:"user_id"`
+	Token     string    `gorm:"size:500;not null" json:"token"`
+	Platform  string    `gorm:"size:20;not null" json:"platform"`
 	CreatedAt time.Time `json:"created_at"`
 }
 

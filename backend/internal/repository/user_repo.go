@@ -92,12 +92,12 @@ func (r *UserRepo) FindCandidates(ctx context.Context, userID uuid.UUID, filters
 }
 
 type CandidateFilters struct {
-	City              string
-	Limit             int
-	MinLastActiveHours int // 0 = no filter
-	Gender            int8 // 0 = any
-	MinAge            int  // 0 = no filter
-	MaxAge            int  // 0 = no filter
+	City               string
+	Limit              int
+	MinLastActiveHours int  // 0 = no filter
+	Gender             int8 // 0 = any
+	MinAge             int  // 0 = no filter
+	MaxAge             int  // 0 = no filter
 }
 
 func (r *UserRepo) SaveDeviceToken(ctx context.Context, dt *model.DeviceToken) error {

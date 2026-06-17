@@ -15,12 +15,12 @@ import (
 
 const (
 	weightJaccard       = 0.40
-	weightPersonality    = 0.30
-	weightRecency        = 0.20
-	weightDiversity      = 0.10
-	maxCandidates        = 100
-	dailyCandidateLimit  = 50 // page views per day (not candidates)
-	minCandidates        = 10
+	weightPersonality   = 0.30
+	weightRecency       = 0.20
+	weightDiversity     = 0.10
+	maxCandidates       = 100
+	dailyCandidateLimit = 50 // page views per day (not candidates)
+	minCandidates       = 10
 )
 
 type MatchService struct {

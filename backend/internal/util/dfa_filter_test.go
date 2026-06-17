@@ -19,7 +19,7 @@ func TestDFAFilterContains(t *testing.T) {
 		{"正常文本没有敏感词", false},
 		{"", false},
 		{"傻  逼", false}, // spaces break the match (DFA works on runes)
-		{"傻逼!", true},    // punctuation after is fine
+		{"傻逼!", true},   // punctuation after is fine
 	}
 
 	for _, tc := range tests {

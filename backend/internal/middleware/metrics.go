@@ -14,7 +14,7 @@ import (
 type Metrics struct {
 	totalRequests   atomic.Int64
 	activeRequests  atomic.Int64
-	requestDuration atomic.Int64 // cumulative microseconds
+	requestDuration atomic.Int64    // cumulative microseconds
 	statusCodes     [6]atomic.Int64 // 2xx, 3xx, 4xx, 401, 403, 5xx
 	startTime       time.Time
 }

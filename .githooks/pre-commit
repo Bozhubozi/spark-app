@@ -1,0 +1,36 @@
+#!/bin/bash
+# Pre-commit hook: lint + test changed Go files and analyze Flutter changes
+
+set -e
+
+REPO_ROOT=$(git rev-parse --show-toplevel)
+BACKEND_DIR="$REPO_ROOT/backend"
+FLUTTER_DIR="$REPO_ROOT/flutter"
+
+# Check if Go files changed
+if git diff --cached --name-only | grep -q '^backend/.*\.go$'; then
+    echo "[pre-commit] Running go vet..."
+    cd "$BACKEND_DIR" && go vet ./internal/...
+    echo "[pre-commit] Running go fmt check..."
+    UNFMT=$(gofmt -l .)
+    if [ -n "$UNFMT" ]; then
+        echo "Unformatted files:"
+        echo "$UNFMT"
+        echo "Run: go fmt ./..."
+        exit 1
+    fi
+    echo "[pre-commit] Running go tests..."
+    cd "$BACKEND_DIR" && go test ./internal/... -count=1 -short
+    echo "[pre-commit] Go checks passed"
+fi
+
+# Check if Flutter files changed
+if git diff --cached --name-only | grep -q '^flutter/.*\.dart$'; then
+    echo "[pre-commit] Running flutter analyze..."
+    cd "$FLUTTER_DIR" && flutter analyze
+    echo "[pre-commit] Running flutter test..."
+    cd "$FLUTTER_DIR" && flutter test
+    echo "[pre-commit] Flutter checks passed"
+fi
+
+echo "[pre-commit] All checks passed"

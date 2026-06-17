@@ -7,25 +7,25 @@ import (
 )
 
 type User struct {
-	ID           uuid.UUID  `gorm:"type:uuid;primaryKey;default:gen_random_uuid()" json:"id"`
+	ID            uuid.UUID  `gorm:"type:uuid;primaryKey;default:gen_random_uuid()" json:"id"`
 	Phone         *string    `gorm:"uniqueIndex;size:20" json:"phone,omitempty"`
 	Email         *string    `gorm:"uniqueIndex;size:255" json:"email,omitempty"`
 	WechatOpenID  *string    `gorm:"uniqueIndex;size:128" json:"-"`
 	WechatUnionID *string    `gorm:"index;size:128" json:"-"`
 	PasswordHash  string     `gorm:"not null" json:"-"`
-	Nickname     string     `gorm:"uniqueIndex;size:50;not null" json:"nickname"`
-	AvatarURL    *string    `gorm:"size:500" json:"avatar_url,omitempty"`
-	Gender       int8       `gorm:"default:0" json:"gender"`
-	BirthDate    *time.Time `json:"birth_date,omitempty"`
-	Bio          *string    `gorm:"size:500" json:"bio,omitempty"`
-	City         *string    `gorm:"size:100" json:"city,omitempty"`
-	CreatedAt    time.Time  `json:"created_at"`
-	UpdatedAt    time.Time  `json:"updated_at"`
-	LastActiveAt time.Time  `json:"last_active_at"`
-	IsActive     bool       `gorm:"default:true" json:"is_active"`
-	DeletedAt    *time.Time `json:"deleted_at,omitempty"`
+	Nickname      string     `gorm:"uniqueIndex;size:50;not null" json:"nickname"`
+	AvatarURL     *string    `gorm:"size:500" json:"avatar_url,omitempty"`
+	Gender        int8       `gorm:"default:0" json:"gender"`
+	BirthDate     *time.Time `json:"birth_date,omitempty"`
+	Bio           *string    `gorm:"size:500" json:"bio,omitempty"`
+	City          *string    `gorm:"size:100" json:"city,omitempty"`
+	CreatedAt     time.Time  `json:"created_at"`
+	UpdatedAt     time.Time  `json:"updated_at"`
+	LastActiveAt  time.Time  `json:"last_active_at"`
+	IsActive      bool       `gorm:"default:true" json:"is_active"`
+	DeletedAt     *time.Time `json:"deleted_at,omitempty"`
 
-	Interests  []InterestTag    `gorm:"many2many:user_interests;" json:"interests,omitempty"`
+	Interests   []InterestTag          `gorm:"many2many:user_interests;" json:"interests,omitempty"`
 	Personality []PersonalityDimension `gorm:"-" json:"personality,omitempty"`
 }
 

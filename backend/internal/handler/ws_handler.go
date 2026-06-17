@@ -82,7 +82,7 @@ type wsConn struct {
 	handler *WSHandler
 }
 
-func (c *wsConn) UserID() uuid.UUID          { return c.userID }
+func (c *wsConn) UserID() uuid.UUID            { return c.userID }
 func (c *wsConn) SendJSON(v interface{}) error { return c.conn.WriteJSON(v) }
 
 func (c *wsConn) readPump() {
@@ -187,13 +187,13 @@ func (c *wsConn) handleMessage(msg *service.WSMessage) {
 		receiverID := c.getReceiver(data.RoomID)
 		if receiverID != uuid.Nil {
 			newMsgData, _ := json.Marshal(map[string]interface{}{
-				"room_id":        data.RoomID,
-				"sender_id":      data.SenderID,
-				"client_msg_id":  data.ClientMsgID,
-				"server_msg_id":  dbMsg.ID.String(),
-				"content_type":   data.ContentType,
-				"content":        data.Content,
-				"sent_at":        dbMsg.SentAt,
+				"room_id":       data.RoomID,
+				"sender_id":     data.SenderID,
+				"client_msg_id": data.ClientMsgID,
+				"server_msg_id": dbMsg.ID.String(),
+				"content_type":  data.ContentType,
+				"content":       data.Content,
+				"sent_at":       dbMsg.SentAt,
 			})
 			c.handler.hub.SendToUser(receiverID, &service.WSMessage{
 				Type: "chat.message.new",

@@ -44,10 +44,10 @@ func (s *PersonalityReportService) Generate(dims []model.PersonalityDimension) *
 	extraversion := s.extraversionDetail(dims)
 
 	return &model.PersonalityReport{
-		Title:             title,
-		Summary:           summary,
-		Traits:            traits,
-		Advice:            advice,
+		Title:              title,
+		Summary:            summary,
+		Traits:             traits,
+		Advice:             advice,
 		ExtraversionDetail: extraversion,
 	}
 }

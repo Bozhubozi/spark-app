@@ -20,10 +20,10 @@ func NewABService(rdb *redis.Client) *ABService {
 
 // Experiment defines an A/B test.
 type Experiment struct {
-	ID        string            // e.g. "matching_algorithm_v2"
-	Variants  []string          // e.g. ["control", "jaccard_only", "personality_boost"]
-	Weights   []int             // e.g. [50, 25, 25] = 50/25/25 split
-	Enabled   bool
+	ID       string   // e.g. "matching_algorithm_v2"
+	Variants []string // e.g. ["control", "jaccard_only", "personality_boost"]
+	Weights  []int    // e.g. [50, 25, 25] = 50/25/25 split
+	Enabled  bool
 }
 
 // Assign returns the variant name for a given user in an experiment.

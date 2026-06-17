@@ -178,10 +178,10 @@ var cities = []struct {
 }
 
 var zodiacSigns = []struct {
-	Name   string
-	Emoji  string
-	Start  time.Time
-	End    time.Time
+	Name  string
+	Emoji string
+	Start time.Time
+	End   time.Time
 }{
 	{"水瓶座", "♒", date(0, 1, 20), date(0, 2, 18)},
 	{"双鱼座", "♓", date(0, 2, 19), date(0, 3, 20)},

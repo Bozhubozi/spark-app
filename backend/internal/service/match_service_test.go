@@ -82,16 +82,16 @@ func TestRecencyBoost(t *testing.T) {
 	if svc.recencyBoost(time.Now()) != 1.0 {
 		t.Error("just now should be 1.0")
 	}
-	if svc.recencyBoost(time.Now().Add(-2 * time.Hour)) != 0.8 {
+	if svc.recencyBoost(time.Now().Add(-2*time.Hour)) != 0.8 {
 		t.Error("2h ago should be 0.8")
 	}
-	if svc.recencyBoost(time.Now().Add(-48 * time.Hour)) != 0.5 {
+	if svc.recencyBoost(time.Now().Add(-48*time.Hour)) != 0.5 {
 		t.Error("48h ago should be 0.5")
 	}
-	if svc.recencyBoost(time.Now().Add(-100 * time.Hour)) != 0.3 {
+	if svc.recencyBoost(time.Now().Add(-100*time.Hour)) != 0.3 {
 		t.Error("100h ago should be 0.3")
 	}
-	if svc.recencyBoost(time.Now().Add(-200 * time.Hour)) != 0.1 {
+	if svc.recencyBoost(time.Now().Add(-200*time.Hour)) != 0.1 {
 		t.Error("200h ago should be 0.1")
 	}
 }

@@ -7,12 +7,12 @@ import (
 )
 
 type ChatRoom struct {
-	ID            uuid.UUID `gorm:"type:uuid;primaryKey;default:gen_random_uuid()" json:"id"`
+	ID            uuid.UUID  `gorm:"type:uuid;primaryKey;default:gen_random_uuid()" json:"id"`
 	MatchID       *uuid.UUID `gorm:"type:uuid" json:"match_id,omitempty"`
-	UserID1       uuid.UUID `gorm:"column:user_id_1;not null;index" json:"user_id_1"`
-	UserID2       uuid.UUID `gorm:"column:user_id_2;not null;index" json:"user_id_2"`
-	LastMessageAt time.Time `json:"last_message_at"`
-	CreatedAt     time.Time `json:"created_at"`
+	UserID1       uuid.UUID  `gorm:"column:user_id_1;not null;index" json:"user_id_1"`
+	UserID2       uuid.UUID  `gorm:"column:user_id_2;not null;index" json:"user_id_2"`
+	LastMessageAt time.Time  `json:"last_message_at"`
+	CreatedAt     time.Time  `json:"created_at"`
 }
 
 type Message struct {

@@ -15,7 +15,7 @@ import (
 type archetype int
 
 const (
-	archOutgoing archetype = iota // high extraversion
+	archOutgoing  archetype = iota // high extraversion
 	archArtistic                   // high openness, high neuroticism
 	archPragmatic                  // high conscientiousness, low neuroticism
 	archSocial                     // high extraversion, high agreeableness

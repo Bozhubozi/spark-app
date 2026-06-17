@@ -7,9 +7,9 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/spark-app/backend/internal/model"
+	"golang.org/x/crypto/bcrypt"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	"golang.org/x/crypto/bcrypt"
 )
 
 func setupChatDB(t *testing.T) *gorm.DB {
