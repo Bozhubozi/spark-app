@@ -75,10 +75,10 @@ func main() {
 	// General API limiter uses Redis (distributed, survives restarts)
 	generalLimiter := middleware.NewRedisRateLimiter(rdb, 30, 100, time.Second)
 
-	r := gin.Default()
-
-	// Request ID — first middleware so all responses get X-Request-ID
+	r := gin.New()
+	r.Use(gin.Recovery())
 	r.Use(middleware.RequestID())
+	r.Use(middleware.StructuredLogger())
 
 	// CORS for web dev
 	r.Use(func(c *gin.Context) {
