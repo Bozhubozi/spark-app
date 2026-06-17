@@ -24,6 +24,7 @@ import (
 
 func main() {
 	cfg := config.Load()
+	cfg.Validate()
 
 	db, err := gorm.Open(postgres.Open(cfg.DSN()), &gorm.Config{})
 	if err != nil {

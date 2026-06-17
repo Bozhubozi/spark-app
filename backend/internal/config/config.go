@@ -1,6 +1,9 @@
 package config
 
-import "os"
+import (
+	"fmt"
+	"os"
+)
 
 type Config struct {
 	ServerPort   string
@@ -26,9 +29,32 @@ func Load() *Config {
 		DBName:       getEnv("DB_NAME", "spark"),
 		RedisAddr:    getEnv("REDIS_ADDR", "localhost:6379"),
 		RedisPass:    getEnv("REDIS_PASS", ""),
-		JWTSecret:    getEnv("JWT_SECRET", "spark-dev-secret-change-in-prod"),
+		JWTSecret:    getEnv("JWT_SECRET", defaultJWTSecret),
 		WechatAppID:  getEnv("WECHAT_APP_ID", ""),
 		WechatSecret: getEnv("WECHAT_SECRET", ""),
+	}
+}
+
+// Validate checks production safety. Fatals if critical secrets are unset or still at defaults.
+func (c *Config) Validate() {
+	env := os.Getenv("APP_ENV")
+	if env != "production" {
+		return
+	}
+
+	issues := []string{}
+	if c.JWTSecret == defaultJWTSecret {
+		issues = append(issues, "JWT_SECRET is still the default value")
+	}
+	if c.DBPassword == "spark123" {
+		issues = append(issues, "DB_PASSWORD is still the default value")
+	}
+	if len(issues) > 0 {
+		for _, s := range issues {
+			fmt.Fprintf(os.Stderr, "[CONFIG] FATAL: %s\n", s)
+		}
+		fmt.Fprintf(os.Stderr, "[CONFIG] Set APP_ENV=development to skip production checks.\n")
+		os.Exit(1)
 	}
 }
 
@@ -44,3 +70,5 @@ func getEnv(key, fallback string) string {
 	}
 	return fallback
 }
+
+const defaultJWTSecret = "spark-dev-secret-change-in-prod"
