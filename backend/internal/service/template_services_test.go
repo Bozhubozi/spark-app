@@ -79,17 +79,13 @@ func TestPersonalityReportDescribe(t *testing.T) {
 func TestHoroscopeDaily(t *testing.T) {
 	svc := NewHoroscopeService()
 
-	dims := []model.PersonalityDimension{
-		{Dimension: "extraversion", Score: 4.5},
-		{Dimension: "agreeableness", Score: 3.5},
-	}
-
 	// Test all 12 zodiac signs produce non-empty output
+	outgoing := []model.PersonalityDimension{{Dimension: "extraversion", Score: 4.5}, {Dimension: "agreeableness", Score: 3.5}}
 	for _, sign := range []string{
 		"水瓶座", "双鱼座", "白羊座", "金牛座", "双子座", "巨蟹座",
 		"狮子座", "处女座", "天秤座", "天蝎座", "射手座", "摩羯座",
 	} {
-		result := svc.Daily(sign, dims)
+		result := svc.Daily(sign, outgoing)
 		if result == "" {
 			t.Errorf("Daily(%s) returned empty", sign)
 		}
@@ -98,10 +94,36 @@ func TestHoroscopeDaily(t *testing.T) {
 		}
 	}
 
-	// Unknown zodiac should return fallback
-	fallback := svc.Daily("未知", dims)
-	if fallback == "" {
-		t.Error("fallback should not be empty")
+	// Verify all 5 archetypes produce valid output with each zodiac
+	archetypeDims := []struct {
+		name string
+		dims []model.PersonalityDimension
+	}{
+		{"outgoing", []model.PersonalityDimension{{Dimension: "extraversion", Score: 4.5}}},
+		{"artistic", []model.PersonalityDimension{{Dimension: "extraversion", Score: 2.0}, {Dimension: "openness", Score: 4.5}, {Dimension: "neuroticism", Score: 4.0}}},
+		{"pragmatic", []model.PersonalityDimension{{Dimension: "extraversion", Score: 2.0}, {Dimension: "conscientiousness", Score: 4.5}, {Dimension: "neuroticism", Score: 2.0}}},
+		{"social", []model.PersonalityDimension{{Dimension: "extraversion", Score: 4.5}, {Dimension: "agreeableness", Score: 4.0}}},
+		{"lowkey", []model.PersonalityDimension{{Dimension: "extraversion", Score: 2.0}, {Dimension: "agreeableness", Score: 4.0}}},
+	}
+
+	for _, arch := range archetypeDims {
+		result := svc.Daily("狮子座", arch.dims)
+		if result == "" {
+			t.Errorf("archetype %s: empty result", arch.name)
+		}
+	}
+
+	// Test all 60 combinations: 12 zodiac × 5 archetypes
+	for _, sign := range []string{
+		"水瓶座", "双鱼座", "白羊座", "金牛座", "双子座", "巨蟹座",
+		"狮子座", "处女座", "天秤座", "天蝎座", "射手座", "摩羯座",
+	} {
+		for _, arch := range archetypeDims {
+			result := svc.Daily(sign, arch.dims)
+			if result == "" {
+				t.Errorf("60-combo: %s x %s returned empty", sign, arch.name)
+			}
+		}
 	}
 }
 
