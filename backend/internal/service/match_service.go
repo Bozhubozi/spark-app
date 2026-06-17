@@ -19,7 +19,7 @@ const (
 	weightRecency        = 0.20
 	weightDiversity      = 0.10
 	maxCandidates        = 100
-	dailyCandidateLimit  = 100
+	dailyCandidateLimit  = 50 // page views per day (not candidates)
 	minCandidates        = 10
 )
 
@@ -35,15 +35,13 @@ func NewMatchService(mr *repository.MatchRepo, ir *repository.InterestRepo, ur *
 }
 
 func (s *MatchService) GetCandidates(ctx context.Context, userID uuid.UUID, city string, gender int8, minAge, maxAge int) ([]model.User, error) {
-	// Check daily limit
-	remaining := s.dailyRemaining(ctx, userID)
-	if remaining <= 0 {
+	// Check daily page-view limit
+	if s.dailyRemaining(ctx, userID) <= 0 {
 		return nil, nil
 	}
-	fetchLimit := min(remaining, maxCandidates)
 
 	// Progressive relaxation
-	candidates, err := s.fetchWithRelaxation(ctx, userID, city, gender, minAge, maxAge, fetchLimit)
+	candidates, err := s.fetchWithRelaxation(ctx, userID, city, gender, minAge, maxAge, maxCandidates)
 	if err != nil {
 		return nil, err
 	}
@@ -51,8 +49,8 @@ func (s *MatchService) GetCandidates(ctx context.Context, userID uuid.UUID, city
 		return nil, nil
 	}
 
-	// Track daily count
-	_ = s.rdb.IncrBy(ctx, dailyKey(userID), int64(len(candidates))).Err()
+	// Track daily page views (1 per call, not per candidate)
+	_ = s.rdb.IncrBy(ctx, dailyKey(userID), 1).Err()
 	_ = s.rdb.ExpireAt(ctx, dailyKey(userID), endOfDay()).Err()
 
 	user, err := s.userRepo.FindByID(ctx, userID)
