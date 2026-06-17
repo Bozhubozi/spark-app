@@ -10,7 +10,7 @@ import (
 	"github.com/redis/go-redis/v9"
 )
 
-// RedisRateLimiter uses Redis for distributed rate limiting (token bucket).
+// RedisRateLimiter uses Redis Sorted Set for distributed rate limiting (sliding window counter).
 type RedisRateLimiter struct {
 	rdb   *redis.Client
 	rate  int // max requests per window

@@ -119,6 +119,9 @@ func (h *WSHub) FetchOfflineMessages(userID uuid.UUID) ([]json.RawMessage, error
 	if err != nil || len(vals) == 0 {
 		return nil, err
 	}
+	// Delete immediately — messages are now in memory and will be sent.
+	// Risk: if writePump fails mid-send, unsent messages are lost.
+	// Mitigation for post-MVP: ACK-based deletion (client confirms receipt).
 	h.redis.Del(ctx, key)
 	var msgs []json.RawMessage
 	for _, v := range vals {
