@@ -115,14 +115,13 @@ func (h *WSHub) queueOffline(userID uuid.UUID, msg *WSMessage) error {
 func (h *WSHub) FetchOfflineMessages(userID uuid.UUID) ([]json.RawMessage, error) {
 	key := fmt.Sprintf("offline:msgs:%s", userID)
 	ctx := context.Background()
-	vals, err := h.redis.LRange(ctx, key, 0, -1).Result()
+	// LPopCount atomically fetches and removes up to 100 messages (Redis 6.2+).
+	// Messages are deleted immediately — if the client disconnects mid-send,
+	// unsent messages are lost. Post-MVP: ACK-based deletion.
+	vals, err := h.redis.LPopCount(ctx, key, 100).Result()
 	if err != nil || len(vals) == 0 {
 		return nil, err
 	}
-	// Delete immediately — messages are now in memory and will be sent.
-	// Risk: if writePump fails mid-send, unsent messages are lost.
-	// Mitigation for post-MVP: ACK-based deletion (client confirms receipt).
-	h.redis.Del(ctx, key)
 	var msgs []json.RawMessage
 	for _, v := range vals {
 		msgs = append(msgs, json.RawMessage(v))

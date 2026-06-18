@@ -151,7 +151,7 @@ func (s *MatchService) computeScore(user, candidate *model.User, userPersonality
 	jaccardScore := s.jaccard(user.Interests, candidate.Interests)
 	personalityScore := s.personalityDistance(userPersonality, candidate.Personality)
 	recencyScore := s.recencyBoost(candidate.LastActiveAt)
-	diversityScore := s.diversityPenalty(user.Interests, candidate.Interests)
+	diversityScore := s.diversityBonus(user.Interests, candidate.Interests)
 
 	return weightJaccard*jaccardScore +
 		weightPersonality*personalityScore +
@@ -219,7 +219,7 @@ func (s *MatchService) recencyBoost(lastActive time.Time) float64 {
 	return 0.1
 }
 
-func (s *MatchService) diversityPenalty(a, b []model.InterestTag) float64 {
+func (s *MatchService) diversityBonus(a, b []model.InterestTag) float64 {
 	setA := make(map[int]bool, len(a))
 	for _, t := range a {
 		setA[t.ID] = true

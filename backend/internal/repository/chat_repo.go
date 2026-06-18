@@ -7,6 +7,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/spark-app/backend/internal/model"
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 )
 
 type ChatRepo struct {
@@ -41,8 +42,18 @@ func (r *ChatRepo) FindOrCreateRoom(ctx context.Context, user1, user2 uuid.UUID)
 func (r *ChatRepo) SaveMessage(ctx context.Context, msg *model.Message) error {
 	msg.SentAt = time.Now()
 	return r.db.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
-		if err := tx.Create(msg).Error; err != nil {
-			return err
+		result := tx.Clauses(clause.OnConflict{
+			Columns:   []clause.Column{{Name: "client_msg_id"}},
+			DoNothing: true,
+		}).Create(msg)
+		if result.Error != nil {
+			return result.Error
+		}
+		// If no row was inserted (conflict on client_msg_id), fetch the existing message
+		if result.RowsAffected == 0 {
+			if err := tx.Where("client_msg_id = ?", msg.ClientMsgID).First(msg).Error; err != nil {
+				return err
+			}
 		}
 		return tx.Model(&model.ChatRoom{}).
 			Where("id = ?", msg.RoomID).

@@ -103,20 +103,20 @@ func TestDiversityPenalty(t *testing.T) {
 	b := []model.InterestTag{{ID: 3}, {ID: 4}, {ID: 5}}
 
 	// uniqueInB = {4,5} = 2, len(b)=3, 2/3 ≈ 0.667
-	score := svc.diversityPenalty(a, b)
+	score := svc.diversityBonus(a, b)
 	if score != 2.0/3.0 {
 		t.Errorf("diversity = %v, want %v", score, 2.0/3.0)
 	}
 
 	// All overlap -> 0 unique
 	c := []model.InterestTag{{ID: 1}, {ID: 2}}
-	if svc.diversityPenalty(a, c) != 0 {
+	if svc.diversityBonus(a, c) != 0 {
 		t.Error("all overlapping should be 0")
 	}
 
 	// All unique -> 1.0
 	d := []model.InterestTag{{ID: 10}, {ID: 11}}
-	if svc.diversityPenalty(a, d) != 1.0 {
+	if svc.diversityBonus(a, d) != 1.0 {
 		t.Error("all unique should be 1.0")
 	}
 }

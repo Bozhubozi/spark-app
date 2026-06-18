@@ -159,6 +159,12 @@ func (c *wsConn) handleMessage(msg *service.WSMessage) {
 			return
 		}
 
+		// Verify sender belongs to this chat room
+		room, err := c.handler.chatRepo.FindByID(ctx, data.RoomID)
+		if err != nil || room == nil || (room.UserID1 != c.userID && room.UserID2 != c.userID) {
+			return // silently drop — unauthorized sender
+		}
+
 		dbMsg := &model.Message{
 			RoomID:      data.RoomID,
 			SenderID:    data.SenderID,
