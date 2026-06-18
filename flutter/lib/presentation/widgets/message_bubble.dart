@@ -41,7 +41,7 @@ class MessageBubble extends StatelessWidget {
                 if (isMine) ...[
                   const SizedBox(width: 4),
                   if (message.isRead)
-                    const Text('Read', style: TextStyle(color: Colors.white54, fontSize: 11))
+                    const Text('已读', style: TextStyle(color: Colors.white54, fontSize: 11))
                   else
                     Icon(
                       message.id != message.clientMsgId ? Icons.check : Icons.access_time,

@@ -16,18 +16,18 @@ class DiscoveryPrefsScreen extends ConsumerWidget {
     final maxAge = ref.watch(discoveryMaxAgeProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Discovery Preferences')),
+      appBar: AppBar(title: const Text('发现偏好')),
       body: ListView(
         padding: const EdgeInsets.all(24),
         children: [
           // Gender
-          const Text('Show me', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+          const Text('向我展示', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
           const SizedBox(height: 12),
           SegmentedButton<int>(
             segments: const [
-              ButtonSegment(value: 0, label: Text('Everyone')),
-              ButtonSegment(value: 1, label: Text('Male')),
-              ButtonSegment(value: 2, label: Text('Female')),
+              ButtonSegment(value: 0, label: Text('所有人')),
+              ButtonSegment(value: 1, label: Text('男')),
+              ButtonSegment(value: 2, label: Text('女')),
             ],
             selected: {gender},
             onSelectionChanged: (s) =>
@@ -40,7 +40,7 @@ class DiscoveryPrefsScreen extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Age range', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+              const Text('年龄范围', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
               Text('$minAge - $maxAge',
                   style: TextStyle(color: Colors.grey[400], fontSize: 16)),
             ],
@@ -65,7 +65,7 @@ class DiscoveryPrefsScreen extends ConsumerWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () => context.pop(),
-              child: const Text('Apply'),
+              child: const Text('应用'),
             ),
           ),
         ],

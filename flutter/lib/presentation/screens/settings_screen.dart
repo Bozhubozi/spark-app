@@ -12,14 +12,14 @@ class SettingsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Settings')),
+      appBar: AppBar(title: const Text('设置')),
       body: ListView(
         children: [
           const SizedBox(height: 8),
-          _sectionHeader('Notifications'),
+          _sectionHeader('通知设置'),
           SwitchListTile(
-            title: const Text('New Matches'),
-            subtitle: Text('When someone likes you back',
+            title: const Text('新匹配'),
+            subtitle: Text('当有人也喜欢你时',
                 style: TextStyle(color: Colors.grey[500], fontSize: 13)),
             value: ref.watch(notifyNewMatchProvider),
             onChanged: (v) =>
@@ -27,8 +27,8 @@ class SettingsScreen extends ConsumerWidget {
             activeThumbColor: const Color(0xFF6C5CE7),
           ),
           SwitchListTile(
-            title: const Text('New Messages'),
-            subtitle: Text('When you receive a chat message',
+            title: const Text('新消息'),
+            subtitle: Text('收到聊天消息时',
                 style: TextStyle(color: Colors.grey[500], fontSize: 13)),
             value: ref.watch(notifyNewMessageProvider),
             onChanged: (v) =>
@@ -36,7 +36,7 @@ class SettingsScreen extends ConsumerWidget {
             activeThumbColor: const Color(0xFF6C5CE7),
           ),
           const Divider(height: 32),
-          _sectionHeader('Privacy & Legal'),
+          _sectionHeader('隐私与法务'),
           ListTile(
             leading: const Icon(Icons.shield_outlined),
             title: const Text('Privacy Policy'),
@@ -51,25 +51,25 @@ class SettingsScreen extends ConsumerWidget {
           ),
           ListTile(
             leading: const Icon(Icons.block_outlined),
-            title: const Text('Blocked Users'),
+            title: const Text('已拉黑用户'),
             trailing: const Icon(Icons.chevron_right),
             onTap: () => context.push('/blocked-users'),
           ),
           ListTile(
             leading: const Icon(Icons.download_outlined),
-            title: const Text('Export My Data'),
+            title: const Text('导出我的数据'),
             trailing: const Icon(Icons.chevron_right),
             onTap: () {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Data export request submitted')),
+                const SnackBar(content: Text('数据导出请求已提交')),
               );
             },
           ),
           const Divider(height: 32),
-          _sectionHeader('About'),
+          _sectionHeader('关于'),
           const ListTile(
             leading: Icon(Icons.info_outline),
-            title: Text('Version'),
+            title: Text('版本'),
             trailing: Text('1.0.0', style: TextStyle(color: Colors.grey)),
           ),
           const Divider(height: 32),
@@ -81,7 +81,7 @@ class SettingsScreen extends ConsumerWidget {
                 if (context.mounted) context.go('/login');
               },
               style: OutlinedButton.styleFrom(foregroundColor: Colors.redAccent),
-              child: const Text('Log Out'),
+              child: const Text('退出登录'),
             ),
           ),
           const SizedBox(height: 32),
@@ -122,7 +122,7 @@ class SettingsScreen extends ConsumerWidget {
           ),
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Close')),
+          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('关闭')),
         ],
       ),
     );
@@ -146,7 +146,7 @@ class SettingsScreen extends ConsumerWidget {
           ),
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Close')),
+          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('关闭')),
         ],
       ),
     );

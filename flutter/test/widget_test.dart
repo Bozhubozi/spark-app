@@ -6,7 +6,7 @@ void main() {
   testWidgets('Welcome screen renders Get Started button', (WidgetTester tester) async {
     await tester.pumpWidget(const ProviderScope(child: SparkApp()));
     await tester.pump();
-    expect(find.text('Get Started'), findsOneWidget);
-    expect(find.text('Log In'), findsOneWidget);
+    expect(find.text('立即开始'), findsOneWidget);
+    expect(find.text('登录'), findsOneWidget);
   });
 }

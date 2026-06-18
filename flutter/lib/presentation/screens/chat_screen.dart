@@ -211,7 +211,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
       ref.invalidate(chatRoomsProvider);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('User blocked')),
+          const SnackBar(content: Text('已拉黑')),
         );
       }
     } catch (_) {}
@@ -226,7 +226,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
       });
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Report submitted')),
+          const SnackBar(content: Text('已举报')),
         );
       }
     } catch (_) {}
@@ -300,9 +300,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(widget.otherName ?? 'Chat', style: const TextStyle(fontSize: 16)),
+            Text(widget.otherName ?? '聊天', style: const TextStyle(fontSize: 16)),
             Text(
-              _partnerTyping ? 'typing...' : _connected ? 'online' : 'connecting...',
+              _partnerTyping ? '正在输入...' : _connected ? '在线' : '连接中...',
               style: TextStyle(
                 color: _partnerTyping ? const Color(0xFF6C5CE7) : _connected ? const Color(0xFF00B894) : Colors.grey,
                 fontSize: 12,
@@ -321,8 +321,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                 }
               },
               itemBuilder: (_) => const [
-                PopupMenuItem(value: 'block', child: Text('Block User')),
-                PopupMenuItem(value: 'report', child: Text('Report User')),
+                PopupMenuItem(value: 'block', child: Text('拉黑')),
+                PopupMenuItem(value: 'report', child: Text('举报')),
               ],
             ),
         ],
@@ -335,10 +335,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                     child: Column(mainAxisSize: MainAxisSize.min, children: [
                       const Icon(Icons.chat_bubble_outline, size: 56, color: Colors.white24),
                       const SizedBox(height: 16),
-                      Text('No messages yet',
+                      Text('暂无消息',
                           style: TextStyle(color: Colors.grey[600], fontSize: 15)),
                       const SizedBox(height: 8),
-                      Text('Say hello to break the ice',
+                      Text('打个招呼破冰吧',
                           style: TextStyle(color: Colors.grey[700], fontSize: 13)),
                     ]),
                   )
@@ -365,7 +365,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                     controller: _msgCtrl,
                     onChanged: _onTyping,
                     decoration: const InputDecoration(
-                      hintText: 'Type a message...',
+                      hintText: '输入消息...',
                       border: InputBorder.none,
                       contentPadding: EdgeInsets.symmetric(horizontal: 12),
                     ),

@@ -11,7 +11,7 @@ class BlockedUsersScreen extends ConsumerWidget {
     final blocked = ref.watch(blockedUsersProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Blocked Users')),
+      appBar: AppBar(title: const Text('已拉黑用户')),
       body: blocked.when(
         data: (list) {
           if (list.isEmpty) {
@@ -19,10 +19,10 @@ class BlockedUsersScreen extends ConsumerWidget {
               child: Column(mainAxisSize: MainAxisSize.min, children: [
                 Icon(Icons.block_outlined, size: 80, color: Colors.grey[600]),
                 const SizedBox(height: 16),
-                Text('No blocked users',
+                Text('没有拉黑用户',
                     style: TextStyle(color: Colors.grey[500], fontSize: 16)),
                 const SizedBox(height: 4),
-                Text('Users you block will appear here',
+                Text('你拉黑的用户会显示在这里',
                     style: TextStyle(color: Colors.grey[600], fontSize: 13)),
               ]),
             );
@@ -57,7 +57,7 @@ class BlockedUsersScreen extends ConsumerWidget {
                       ),
                       TextButton(
                         onPressed: () => _unblock(context, ref, item.matchId, u.id, name),
-                        child: const Text('Unblock'),
+                        child: const Text('解除拉黑'),
                       ),
                     ],
                   ),
@@ -69,11 +69,11 @@ class BlockedUsersScreen extends ConsumerWidget {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (e, _) => Center(
           child: Column(mainAxisSize: MainAxisSize.min, children: [
-            Text('Error: $e', style: TextStyle(color: Colors.grey[500])),
+            Text('错误：$e', style: TextStyle(color: Colors.grey[500])),
             const SizedBox(height: 8),
             TextButton(
               onPressed: () => ref.invalidate(blockedUsersProvider),
-              child: const Text('Retry'),
+              child: const Text('重试'),
             ),
           ]),
         ),
@@ -90,7 +90,7 @@ class BlockedUsersScreen extends ConsumerWidget {
       ref.invalidate(blockedUsersProvider);
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('$name unblocked')),
+          SnackBar(content: Text('已解除拉黑 $name')),
         );
       }
     } catch (_) {}

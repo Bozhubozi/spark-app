@@ -45,11 +45,11 @@ class _ZodiacCompatScreenState extends ConsumerState<ZodiacCompatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Zodiac Compatibility')),
+      appBar: AppBar(title: const Text('星座配对')),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : _data == null
-              ? const Center(child: Text('Could not load compatibility data'))
+              ? const Center(child: Text('无法加载配对数据'))
               : _buildContent(),
     );
   }
@@ -61,7 +61,7 @@ class _ZodiacCompatScreenState extends ConsumerState<ZodiacCompatScreen> {
     final report = _data!['report'] as String? ?? '';
     final userTrait = zodiacTraits[userZodiac];
     final targetTrait = zodiacTraits[targetZodiac];
-    final myName = ref.read(authProvider).valueOrNull?.nickname ?? 'You';
+    final myName = ref.read(authProvider).valueOrNull?.nickname ?? '你';
 
     return ListView(
       padding: const EdgeInsets.all(24),
@@ -92,7 +92,7 @@ class _ZodiacCompatScreenState extends ConsumerState<ZodiacCompatScreen> {
                             fontSize: 36,
                             fontWeight: FontWeight.bold,
                             color: _scoreColor(score))),
-                    Text('Match', style: TextStyle(color: Colors.grey[500], fontSize: 13)),
+                    Text('匹配度', style: TextStyle(color: Colors.grey[500], fontSize: 13)),
                   ],
                 ),
               ],

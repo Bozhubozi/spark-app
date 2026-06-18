@@ -96,9 +96,9 @@ class _MatchCardState extends ConsumerState<MatchCard> with SingleTickerProvider
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Report User', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              const Text('举报用户', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
-              Text('Blocking will prevent this user from appearing again.',
+              Text('拉黑后将不会再看到该用户',
                   style: TextStyle(color: Colors.grey[500], fontSize: 13)),
               const SizedBox(height: 20),
               SizedBox(
@@ -109,7 +109,7 @@ class _MatchCardState extends ConsumerState<MatchCard> with SingleTickerProvider
                     _swipe('pass');
                   },
                   style: OutlinedButton.styleFrom(foregroundColor: Colors.orangeAccent),
-                  child: const Text('Block User'),
+                  child: const Text('拉黑'),
                 ),
               ),
               const SizedBox(height: 8),
@@ -117,7 +117,7 @@ class _MatchCardState extends ConsumerState<MatchCard> with SingleTickerProvider
                 width: double.infinity,
                 child: TextButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('Cancel', style: TextStyle(color: Colors.grey)),
+                  child: const Text('取消', style: TextStyle(color: Colors.grey)),
                 ),
               ),
             ],
@@ -142,8 +142,8 @@ class _MatchCardState extends ConsumerState<MatchCard> with SingleTickerProvider
       if (matched && mounted) {
         ref.read(notificationProvider.notifier).add(AppNotification(
           id: const Uuid().v4(),
-          title: 'New Match!',
-          body: 'You and ${widget.user.nickname} liked each other',
+          title: '新的匹配！',
+          body: '你和 ${widget.user.nickname} 互相喜欢',
         ));
         final icebreakers = (resp.data['icebreakers'] as List<dynamic>?)
                 ?.map((e) => e.toString())
@@ -321,7 +321,7 @@ class _MatchCardState extends ConsumerState<MatchCard> with SingleTickerProvider
                 border: Border.all(color: const Color(0xFF00B894), width: 3),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: const Text('LIKE',
+              child: const Text('喜欢',
                   style: TextStyle(
                       color: Color(0xFF00B894),
                       fontSize: 28,
@@ -341,7 +341,7 @@ class _MatchCardState extends ConsumerState<MatchCard> with SingleTickerProvider
                 border: Border.all(color: Colors.redAccent, width: 3),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: const Text('NOPE',
+              child: const Text('跳过',
                   style: TextStyle(
                       color: Colors.redAccent,
                       fontSize: 28,
@@ -372,11 +372,11 @@ class _MatchCardState extends ConsumerState<MatchCard> with SingleTickerProvider
 
   String _lastActive(DateTime dt) {
     final diff = DateTime.now().difference(dt);
-    if (diff.inMinutes < 1) return 'Active just now';
-    if (diff.inMinutes < 60) return 'Active ${diff.inMinutes}m ago';
-    if (diff.inHours < 24) return 'Active ${diff.inHours}h ago';
-    if (diff.inDays < 7) return 'Active ${diff.inDays}d ago';
-    return 'Active ${diff.inDays ~/ 7}w ago';
+    if (diff.inMinutes < 1) return '刚刚活跃';
+    if (diff.inMinutes < 60) return '${diff.inMinutes}m ago';
+    if (diff.inHours < 24) return '${diff.inHours}h ago';
+    if (diff.inDays < 7) return '${diff.inDays}d ago';
+    return '${diff.inDays ~/ 7}w ago';
   }
 }
 
@@ -462,12 +462,12 @@ class _MatchCelebrationDialogState extends State<_MatchCelebrationDialog>
                       borderRadius: BorderRadius.circular(12)),
                 ),
                 onPressed: widget.onChat,
-                child: const Text('Start Chatting'),
+                child: const Text('开始聊天'),
               ),
             ),
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Keep Swiping',
+              child: const Text('继续滑动',
                   style: TextStyle(color: Colors.grey)),
             ),
           ],

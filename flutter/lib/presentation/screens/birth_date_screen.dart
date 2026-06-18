@@ -35,7 +35,7 @@ class _BirthDateScreenState extends ConsumerState<BirthDateScreen> {
     } catch (_) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Save failed, please retry')),
+          const SnackBar(content: Text('保存失败，请重试')),
         );
       }
     } finally {
@@ -70,11 +70,11 @@ class _BirthDateScreenState extends ConsumerState<BirthDateScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Your Birthday'),
+        title: const Text('你的生日'),
         actions: [
           TextButton(
             onPressed: () => context.push('/onboarding/gender'),
-            child: const Text('Skip'),
+            child: const Text('跳过'),
           ),
         ],
       ),
@@ -86,10 +86,10 @@ class _BirthDateScreenState extends ConsumerState<BirthDateScreen> {
               const Spacer(flex: 2),
               const Icon(Icons.cake_outlined, size: 64, color: Color(0xFF6C5CE7)),
               const SizedBox(height: 24),
-              Text('When is your birthday?',
+              Text('你的生日是？',
                   style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 8),
-              Text('Your zodiac sign helps us find better matches',
+              Text('你的星座帮助我们找到更合适的匹配',
                   style: TextStyle(color: Colors.grey[500], fontSize: 14)),
               const SizedBox(height: 16),
               const StepIndicator(total: 4, current: 2),
@@ -114,7 +114,7 @@ class _BirthDateScreenState extends ConsumerState<BirthDateScreen> {
                       Text(
                         _selected != null
                             ? '${_selected!.year}-${_selected!.month.toString().padLeft(2, '0')}-${_selected!.day.toString().padLeft(2, '0')}'
-                            : 'Tap to select',
+                            : '点击选择',
                         style: TextStyle(
                           fontSize: 18,
                           color: _selected != null ? Colors.white : Colors.grey[500],
@@ -164,7 +164,7 @@ class _BirthDateScreenState extends ConsumerState<BirthDateScreen> {
                   child: _saving
                       ? const SizedBox(height: 20, width: 20,
                           child: CircularProgressIndicator(strokeWidth: 2))
-                      : const Text('Continue'),
+                      : const Text('继续'),
                 ),
               ),
               const SizedBox(height: 32),

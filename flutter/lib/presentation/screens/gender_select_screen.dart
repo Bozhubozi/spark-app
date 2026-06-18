@@ -33,7 +33,7 @@ class _GenderSelectScreenState extends ConsumerState<GenderSelectScreen> {
     } catch (_) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Save failed')),
+          const SnackBar(content: Text('保存失败')),
         );
       }
     } finally {
@@ -45,11 +45,11 @@ class _GenderSelectScreenState extends ConsumerState<GenderSelectScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('I am...'),
+        title: const Text('我是...'),
         actions: [
           TextButton(
             onPressed: () => context.push('/onboarding/avatar'),
-            child: const Text('Skip'),
+            child: const Text('跳过'),
           ),
         ],
       ),
@@ -59,27 +59,27 @@ class _GenderSelectScreenState extends ConsumerState<GenderSelectScreen> {
           children: [
             const SizedBox(height: 32),
             Text(
-              'How do you identify?',
+              '你的性别是？',
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 8),
             Text(
-              'This helps us find better matches for you',
+              '这将帮助我们为你找到更合适的匹配',
               style: TextStyle(color: Colors.grey[500], fontSize: 14),
             ),
             const SizedBox(height: 16),
             const StepIndicator(total: 4, current: 3),
             const SizedBox(height: 32),
-            _genderCard(0, 'Secret', Icons.visibility_off, 'Prefer not to say'),
+            _genderCard(0, '保密', Icons.visibility_off, '不愿透露'),
             const SizedBox(height: 16),
-            _genderCard(1, 'Male', Icons.male, 'Show me female profiles'),
+            _genderCard(1, '男', Icons.male, '向我展示女性资料'),
             const SizedBox(height: 16),
-            _genderCard(2, 'Female', Icons.female, 'Show me male profiles'),
+            _genderCard(2, '女', Icons.female, '向我展示男性资料'),
             const SizedBox(height: 32),
             TextField(
               controller: _cityCtrl,
               decoration: const InputDecoration(
-                hintText: 'Your city (optional)',
+                hintText: '你的城市（选填）',
                 prefixIcon: Icon(Icons.location_on_outlined),
               ),
             ),
@@ -91,7 +91,7 @@ class _GenderSelectScreenState extends ConsumerState<GenderSelectScreen> {
                 child: _saving
                     ? const SizedBox(height: 20, width: 20,
                         child: CircularProgressIndicator(strokeWidth: 2))
-                    : const Text('Continue'),
+                    : const Text('继续'),
               ),
             ),
           ],

@@ -67,7 +67,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Save failed: $e')),
+          SnackBar(content: Text('保存失败：$e')),
         );
       }
     } finally {
@@ -82,13 +82,13 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       ref.invalidate(authProvider);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Account restored!')),
+          const SnackBar(content: Text('账号已恢复！')),
         );
       }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Restore failed: $e')),
+          SnackBar(content: Text('恢复失败：$e')),
         );
       }
     }
@@ -98,18 +98,18 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Delete Account'),
+        title: const Text('注销账号'),
         content: const Text(
           'Your account will be deactivated for 7 days.\n'
-          'You can restore it by logging back in during this period.\n\n'
-          'After 7 days, your data will be permanently deleted.',
+          '在此期间重新登录即可恢复.\n\n'
+          '7 天后数据将被永久删除.',
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Cancel')),
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('取消')),
           TextButton(
             onPressed: () => Navigator.pop(ctx, true),
             style: TextButton.styleFrom(foregroundColor: Colors.redAccent),
-            child: const Text('Delete'),
+            child: const Text('删除'),
           ),
         ],
       ),
@@ -124,7 +124,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed: $e')),
+          SnackBar(content: Text('失败：$e')),
         );
       }
     }
@@ -136,7 +136,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile'),
+        title: const Text('个人资料'),
         actions: [
           if (!_editing)
             IconButton(
@@ -150,7 +150,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       ),
       body: user.when(
         data: (u) {
-          if (u == null) return const Center(child: Text('Not logged in'));
+          if (u == null) return const Center(child: Text('未登录'));
           if (_editing) return _buildEditForm(u);
           return _buildView(u);
         },
@@ -159,7 +159,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           SkeletonListTile(), SkeletonListTile(), SkeletonListTile(),
           SkeletonListTile(), SkeletonListTile(),
         ]),
-        error: (e, _) => Center(child: Text('Error: $e')),
+        error: (e, _) => Center(child: Text('错误：$e')),
       ),
     );
   }
@@ -189,21 +189,21 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             ),
           ),
         const SizedBox(height: 32),
-        _infoTile(Icons.person_outline, 'Nickname', u.nickname),
-        _infoTile(Icons.phone_outlined, 'Phone', u.phone ?? '-'),
-        _infoTile(Icons.email_outlined, 'Email', u.email ?? '-'),
-        _infoTile(Icons.location_on_outlined, 'City', u.city ?? '-'),
-        _infoTile(Icons.male_outlined, 'Gender', _genderLabel(u.gender)),
+        _infoTile(Icons.person_outline, '昵称', u.nickname),
+        _infoTile(Icons.phone_outlined, '手机号', u.phone ?? '-'),
+        _infoTile(Icons.email_outlined, '邮箱', u.email ?? '-'),
+        _infoTile(Icons.location_on_outlined, '城市', u.city ?? '-'),
+        _infoTile(Icons.male_outlined, '性别', _genderLabel(u.gender)),
         if (u.birthDate != null)
-          _infoTile(Icons.cake_outlined, 'Birthday', u.birthDate!),
+          _infoTile(Icons.cake_outlined, '生日', u.birthDate!),
         const Divider(height: 32),
         ListTile(
           leading: const Icon(Icons.interests_outlined),
-          title: const Text('Interests'),
+          title: const Text('兴趣'),
           subtitle: Text(
             u.interests.isNotEmpty
-                ? '${u.interests.length} selected'
-                : 'Not set',
+                ? '${u.interests.length} 个'
+                : '未设置',
             style: TextStyle(color: Colors.grey[600], fontSize: 13),
           ),
           trailing: const Icon(Icons.chevron_right),
@@ -223,31 +223,31 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         const Divider(height: 32),
         ListTile(
           leading: const Icon(Icons.favorite_border),
-          title: const Text('My Matches'),
+          title: const Text('我的匹配'),
           trailing: const Icon(Icons.chevron_right),
           onTap: () => context.push('/matches'),
         ),
         ListTile(
           leading: const Icon(Icons.auto_awesome),
-          title: const Text('Daily Horoscope'),
+          title: const Text('每日星座运势'),
           trailing: const Icon(Icons.chevron_right),
           onTap: () => context.push('/horoscope'),
         ),
         ListTile(
           leading: const Icon(Icons.psychology_outlined),
-          title: const Text('Personality Profile'),
+          title: const Text('人格档案'),
           trailing: const Icon(Icons.chevron_right),
           onTap: () => context.push('/profile/personality'),
         ),
         ListTile(
           leading: const Icon(Icons.edit_outlined),
-          title: const Text('Edit Profile'),
+          title: const Text('编辑资料'),
           trailing: const Icon(Icons.chevron_right),
           onTap: () => _enterEdit(u),
         ),
         ListTile(
           leading: const Icon(Icons.settings_outlined),
-          title: const Text('Settings'),
+          title: const Text('设置'),
           trailing: const Icon(Icons.chevron_right),
           onTap: () => context.push('/settings'),
         ),
@@ -268,12 +268,12 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   children: [
                     Icon(Icons.warning_amber, color: Colors.orangeAccent, size: 20),
                     SizedBox(width: 8),
-                    Text('Account Scheduled for Deletion',
+                    Text('账号已申请注销',
                         style: TextStyle(color: Colors.orangeAccent, fontWeight: FontWeight.w600)),
                   ],
                 ),
                 const SizedBox(height: 8),
-                Text('Your account will be permanently deleted soon. Restore it to keep using Spark.',
+                Text('你的账号即将被永久删除。恢复后可继续使用火花。',
                     style: TextStyle(color: Colors.grey[400], fontSize: 13)),
                 const SizedBox(height: 12),
                 SizedBox(
@@ -281,7 +281,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   child: ElevatedButton(
                     onPressed: _restoreAccount,
                     style: ElevatedButton.styleFrom(backgroundColor: Colors.orangeAccent),
-                    child: const Text('Restore Account'),
+                    child: const Text('恢复账号'),
                   ),
                 ),
               ],
@@ -296,7 +296,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 foregroundColor: Colors.redAccent,
                 side: const BorderSide(color: Colors.redAccent),
               ),
-              child: const Text('Delete Account'),
+              child: const Text('注销账号'),
             ),
           ),
         const SizedBox(height: 12),
@@ -307,7 +307,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               await ref.read(authProvider.notifier).logout();
               if (mounted) context.go('/login');
             },
-            child: const Text('Log Out'),
+            child: const Text('退出登录'),
           ),
         ),
       ],
@@ -322,7 +322,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         TextField(
           controller: _nicknameCtrl,
           decoration: const InputDecoration(
-            labelText: 'Nickname',
+            labelText: '昵称',
             prefixIcon: Icon(Icons.face),
           ),
         ),
@@ -330,7 +330,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         TextField(
           controller: _bioCtrl,
           decoration: const InputDecoration(
-            labelText: 'Bio',
+            labelText: '个人简介',
             prefixIcon: Icon(Icons.info_outline),
           ),
           maxLines: 3,
@@ -339,7 +339,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         TextField(
           controller: _cityCtrl,
           decoration: const InputDecoration(
-            labelText: 'City',
+            labelText: '城市',
             prefixIcon: Icon(Icons.location_on_outlined),
           ),
         ),
@@ -373,7 +373,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 Text(
                   _birthDate != null
                       ? '${_birthDate!.year}-${_birthDate!.month.toString().padLeft(2, '0')}-${_birthDate!.day.toString().padLeft(2, '0')}'
-                      : 'Birth Date',
+                      : '生日',
                   style: TextStyle(color: _birthDate != null ? Colors.white : Colors.grey[500]),
                 ),
               ],
@@ -383,12 +383,12 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         const SizedBox(height: 16),
         Row(
           children: [
-            const Text('Gender: '),
+            const Text('性别：'),
             SegmentedButton<int>(
               segments: const [
-                ButtonSegment(value: 0, label: Text('Secret')),
-                ButtonSegment(value: 1, label: Text('Male')),
-                ButtonSegment(value: 2, label: Text('Female')),
+                ButtonSegment(value: 0, label: Text('保密')),
+                ButtonSegment(value: 1, label: Text('男')),
+                ButtonSegment(value: 2, label: Text('女')),
               ],
               selected: {_gender},
               onSelectionChanged: (s) => setState(() => _gender = s.first),
@@ -403,7 +403,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             child: _saving
                 ? const SizedBox(height: 20, width: 20,
                     child: CircularProgressIndicator(strokeWidth: 2))
-                : const Text('Save'),
+                : const Text('保存'),
           ),
         ),
         const SizedBox(height: 8),
@@ -411,7 +411,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           width: double.infinity,
           child: OutlinedButton(
             onPressed: () => setState(() => _editing = false),
-            child: const Text('Cancel'),
+            child: const Text('取消'),
           ),
         ),
       ],
@@ -436,11 +436,11 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   String _genderLabel(int g) {
     switch (g) {
       case 1:
-        return 'Male';
+        return '男';
       case 2:
-        return 'Female';
+        return '女';
       default:
-        return 'Secret';
+        return '保密';
     }
   }
 }

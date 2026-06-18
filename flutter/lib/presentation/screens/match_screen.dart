@@ -68,7 +68,7 @@ class _MatchScreenState extends ConsumerState<MatchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Discover'),
+        title: const Text('发现'),
         actions: [
           Builder(
             builder: (context) {
@@ -131,15 +131,15 @@ class _MatchScreenState extends ConsumerState<MatchScreen> {
             child: Column(mainAxisSize: MainAxisSize.min, children: [
               Icon(Icons.nightlight_outlined, size: 80, color: Colors.grey[600]),
               const SizedBox(height: 16),
-              Text('All caught up!',
+              Text('都看完啦！',
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.grey)),
               const SizedBox(height: 8),
-              Text('Check back tomorrow for new people',
+              Text('明天再来看看新朋友吧',
                   style: TextStyle(color: Colors.grey[600], fontSize: 14)),
               const SizedBox(height: 16),
               OutlinedButton(
                 onPressed: _fetchCandidates,
-                child: const Text('Refresh'),
+                child: const Text('刷新'),
               ),
             ]),
           ),
@@ -166,7 +166,7 @@ class _MatchScreenState extends ConsumerState<MatchScreen> {
                 children: [
                   Icon(Icons.flash_on, size: 16, color: Colors.grey[500]),
                   const SizedBox(width: 4),
-                  Text('$remaining swipes remaining today',
+                  Text('$remaining 次滑动',
                       style: TextStyle(color: Colors.grey[500], fontSize: 12)),
                 ],
               ),

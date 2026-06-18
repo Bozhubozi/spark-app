@@ -28,7 +28,7 @@ class HomeScreen extends ConsumerWidget {
         currentIndex: _currentIndex(context),
         onTap: (i) => _onTap(context, i),
         items: [
-          const BottomNavigationBarItem(icon: Icon(Icons.explore), label: 'Discover'),
+          const BottomNavigationBarItem(icon: Icon(Icons.explore), label: '发现'),
           BottomNavigationBarItem(
             icon: unreadTotal > 0
                 ? Badge(
@@ -36,9 +36,9 @@ class HomeScreen extends ConsumerWidget {
                     child: const Icon(Icons.chat_bubble_outline),
                   )
                 : const Icon(Icons.chat_bubble_outline),
-            label: 'Chat',
+            label: '聊天',
           ),
-          const BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'Profile'),
+          const BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: '我的'),
         ],
       ),
     );

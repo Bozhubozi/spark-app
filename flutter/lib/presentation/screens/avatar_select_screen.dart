@@ -55,11 +55,11 @@ class _AvatarSelectScreenState extends ConsumerState<AvatarSelectScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Build Your Avatar'),
+        title: const Text('打造你的形象'),
         actions: [
           TextButton(
             onPressed: () => context.push('/personality-quiz'),
-            child: const Text('Skip'),
+            child: const Text('跳过'),
           ),
         ],
       ),
@@ -80,7 +80,7 @@ class _AvatarSelectScreenState extends ConsumerState<AvatarSelectScreen> {
                       _avatarPreview(),
                       const SizedBox(height: 12),
                       Text(
-                        _selectedName() ?? 'Select components',
+                        _selectedName() ?? '选择组件',
                         style: TextStyle(color: Colors.grey[400]),
                       ),
                     ],
@@ -168,7 +168,7 @@ class _AvatarSelectScreenState extends ConsumerState<AvatarSelectScreen> {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () => context.push('/personality-quiz'),
-                        child: const Text('Continue'),
+                        child: const Text('继续'),
                       ),
                     ),
                   ),
@@ -206,17 +206,17 @@ class _AvatarSelectScreenState extends ConsumerState<AvatarSelectScreen> {
   String _catLabel(String cat) {
     switch (cat) {
       case 'face':
-        return 'Face';
+        return '脸型';
       case 'hair':
-        return 'Hair';
+        return '发型';
       case 'eyes':
-        return 'Eyes';
+        return '眼睛';
       case 'clothes':
-        return 'Clothes';
+        return '服装';
       case 'accessory':
-        return 'Accessory';
+        return '配饰';
       case 'background':
-        return 'BG';
+        return '背景';
       default:
         return cat;
     }

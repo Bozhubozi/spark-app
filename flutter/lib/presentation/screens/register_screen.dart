@@ -38,7 +38,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Register failed: $e')),
+          SnackBar(content: Text('注册失败：$e')),
         );
       }
     } finally {
@@ -49,7 +49,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Create Account')),
+      appBar: AppBar(title: const Text('创建账号')),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 32),
@@ -59,7 +59,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
               TextField(
                 controller: _nicknameCtrl,
                 decoration: const InputDecoration(
-                  hintText: 'Nickname',
+                  hintText: '昵称',
                   prefixIcon: Icon(Icons.face),
                 ),
               ),
@@ -77,14 +77,14 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 alignment: Alignment.centerRight,
                 child: TextButton(
                   onPressed: () => setState(() => _isEmail = !_isEmail),
-                  child: Text(_isEmail ? 'Use phone instead' : 'Use email instead'),
+                  child: Text(_isEmail ? '使用手机号' : '使用邮箱'),
                 ),
               ),
               const SizedBox(height: 8),
               TextField(
                 controller: _passwordCtrl,
                 decoration: const InputDecoration(
-                  hintText: 'Password (min 6 chars)',
+                  hintText: '密码（至少6位）',
                   prefixIcon: Icon(Icons.lock_outline),
                 ),
                 obscureText: true,
@@ -97,7 +97,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   child: _loading
                       ? const SizedBox(height: 20, width: 20,
                           child: CircularProgressIndicator(strokeWidth: 2))
-                      : const Text('Sign Up'),
+                      : const Text('注册'),
                 ),
               ),
             ],

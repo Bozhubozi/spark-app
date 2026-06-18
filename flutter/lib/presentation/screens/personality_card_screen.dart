@@ -47,7 +47,7 @@ class _PersonalityCardScreenState extends ConsumerState<PersonalityCardScreen> {
         await Clipboard.setData(ClipboardData(text: text));
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Personality card copied to clipboard')),
+            const SnackBar(content: Text('已复制到剪贴板')),
           );
         }
       }
@@ -60,7 +60,7 @@ class _PersonalityCardScreenState extends ConsumerState<PersonalityCardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Personality Card'),
+        title: const Text('人格卡片'),
         actions: [
           if (_report != null)
             IconButton(
@@ -78,12 +78,12 @@ class _PersonalityCardScreenState extends ConsumerState<PersonalityCardScreen> {
                   child: Column(mainAxisSize: MainAxisSize.min, children: [
                     const Icon(Icons.psychology_outlined, size: 64, color: Colors.grey),
                     const SizedBox(height: 16),
-                    const Text('Complete the personality quiz first',
+                    const Text('请先完成性格测试',
                         style: TextStyle(color: Colors.grey)),
                     const SizedBox(height: 16),
                     ElevatedButton(
                       onPressed: () => context.push('/personality-quiz'),
-                      child: const Text('Take Personality Quiz'),
+                      child: const Text('去做性格测试'),
                     ),
                   ]),
                 )
@@ -139,7 +139,7 @@ class _PersonalityCardScreenState extends ConsumerState<PersonalityCardScreen> {
               )),
         const SizedBox(height: 24),
         // Traits
-        Text('Your Traits', style: Theme.of(context).textTheme.titleMedium),
+        Text('你的特质', style: Theme.of(context).textTheme.titleMedium),
         const SizedBox(height: 8),
         Wrap(
           spacing: 8,
@@ -225,15 +225,15 @@ class _PersonalityCardScreenState extends ConsumerState<PersonalityCardScreen> {
   String _dimLabel(String dim) {
     switch (dim) {
       case 'extraversion':
-        return 'Extraversion';
+        return '外向性';
       case 'agreeableness':
-        return 'Agreeableness';
+        return '宜人性';
       case 'conscientiousness':
-        return 'Conscientiousness';
+        return '尽责性';
       case 'neuroticism':
-        return 'Emotional Stability';
+        return '情绪稳定性';
       case 'openness':
-        return 'Openness';
+        return '开放性';
       default:
         return dim;
     }

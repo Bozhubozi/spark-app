@@ -49,7 +49,7 @@ class HoroscopeBanner extends ConsumerWidget {
                         children: [
                           const Icon(Icons.auto_awesome, size: 14, color: Color(0xFFFDCB6E)),
                           const SizedBox(width: 4),
-                          Text('Daily Horoscope',
+                          Text('每日星座运势',
                               style: TextStyle(color: Colors.grey[500], fontSize: 12)),
                         ],
                       ),

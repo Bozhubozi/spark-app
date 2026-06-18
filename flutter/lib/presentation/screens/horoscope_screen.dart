@@ -36,7 +36,7 @@ class _HoroscopeScreenState extends ConsumerState<HoroscopeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Daily Horoscope')),
+      appBar: AppBar(title: const Text('每日星座运势')),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : _data == null
@@ -44,7 +44,7 @@ class _HoroscopeScreenState extends ConsumerState<HoroscopeScreen> {
                   child: Column(mainAxisSize: MainAxisSize.min, children: [
                     Icon(Icons.error_outline, size: 48, color: Colors.grey),
                     SizedBox(height: 12),
-                    Text('Set your birth date to see your horoscope',
+                    Text('设置生日查看你的星座运势',
                         style: TextStyle(color: Colors.grey)),
                   ]),
                 )
@@ -117,7 +117,7 @@ class _HoroscopeScreenState extends ConsumerState<HoroscopeScreen> {
                   const Spacer(),
                   const Icon(Icons.auto_awesome, size: 16, color: Color(0xFFFDCB6E)),
                   const SizedBox(width: 4),
-                  const Text('Spark Horoscope',
+                  const Text('火花星座运势',
                       style: TextStyle(color: Color(0xFFFDCB6E), fontSize: 12)),
                 ],
               ),

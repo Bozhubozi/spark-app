@@ -14,7 +14,7 @@ class ChatListScreen extends ConsumerWidget {
     final user = ref.watch(authProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Messages')),
+      appBar: AppBar(title: const Text('消息')),
       body: rooms.when(
         data: (list) {
           if (list.isEmpty) {
@@ -26,9 +26,9 @@ class ChatListScreen extends ConsumerWidget {
                   child: Column(mainAxisSize: MainAxisSize.min, children: [
                     Icon(Icons.chat_bubble_outline, size: 80, color: Colors.grey[600]),
                     const SizedBox(height: 16),
-                    Text('No messages yet', style: TextStyle(color: Colors.grey[500], fontSize: 16)),
+                    Text('暂无消息', style: TextStyle(color: Colors.grey[500], fontSize: 16)),
                     const SizedBox(height: 4),
-                    Text('Match with someone to start chatting',
+                    Text('匹配成功后开始聊天',
                         style: TextStyle(color: Colors.grey[600], fontSize: 13)),
                   ]),
                 ),
@@ -50,9 +50,9 @@ class ChatListScreen extends ConsumerWidget {
                     backgroundColor: const Color(0xFF6C5CE7),
                     child: Text(initial),
                   ),
-                  title: Text(room.otherNickname.isNotEmpty ? room.otherNickname : 'Chat'),
+                  title: Text(room.otherNickname.isNotEmpty ? room.otherNickname : '聊天'),
                   subtitle: Text(
-                    room.lastContent ?? 'Tap to chat',
+                    room.lastContent ?? '点击开始聊天',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(color: Colors.grey[500]),
@@ -94,7 +94,7 @@ class ChatListScreen extends ConsumerWidget {
             const SizedBox(height: 8),
             TextButton(
               onPressed: () => ref.invalidate(chatRoomsProvider),
-              child: const Text('Retry'),
+              child: const Text('重试'),
             ),
           ]),
         ),

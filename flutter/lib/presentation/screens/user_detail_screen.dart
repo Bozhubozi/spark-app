@@ -133,7 +133,7 @@ class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
                 // Bio
                 if (user.bio != null && user.bio!.isNotEmpty) ...[
                   const SizedBox(height: 24),
-                  const Text('About', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+                  const Text('关于', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
                   const SizedBox(height: 8),
                   Text(user.bio!,
                       style: TextStyle(color: Colors.grey[300], height: 1.6, fontSize: 15)),
@@ -142,7 +142,7 @@ class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
                 // Interests
                 if (user.interests.isNotEmpty) ...[
                   const SizedBox(height: 24),
-                  const Text('Interests', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+                  const Text('兴趣', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
                   const SizedBox(height: 12),
                   Wrap(
                     spacing: 8, runSpacing: 8,
@@ -159,7 +159,7 @@ class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
                 // Zodiac compat preview
                 if (zodiac.isNotEmpty) ...[
                   const SizedBox(height: 24),
-                  const Text('Zodiac', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+                  const Text('星座', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
                   const SizedBox(height: 12),
                   Container(
                     padding: const EdgeInsets.all(16),
@@ -259,7 +259,7 @@ class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
 
   String _lastActive(DateTime dt) {
     final diff = DateTime.now().difference(dt);
-    if (diff.inMinutes < 60) return 'Active recently';
+    if (diff.inMinutes < 60) return '最近活跃';
     if (diff.inHours < 24) return 'Active ${diff.inHours}h ago';
     if (diff.inDays < 7) return 'Active ${diff.inDays}d ago';
     return 'Active ${diff.inDays ~/ 7}w ago';

@@ -33,7 +33,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Login failed: $e')),
+          SnackBar(content: Text('登录失败：$e')),
         );
       }
     } finally {
@@ -53,17 +53,17 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               const Spacer(flex: 2),
               const Icon(Icons.auto_awesome, size: 64, color: Color(0xFF6C5CE7)),
               const SizedBox(height: 16),
-              Text('Spark', style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+              Text('火花', style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                     fontWeight: FontWeight.bold, color: const Color(0xFF6C5CE7))),
               const SizedBox(height: 8),
-              Text('Find your spark ✨',
+              Text('遇见你的火花 ✨',
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: Colors.grey)),
               const Spacer(),
               TextField(
                 controller: _accountCtrl,
                 decoration: const InputDecoration(
-                  hintText: 'Phone or Email',
+                  hintText: '手机号或邮箱',
                   prefixIcon: Icon(Icons.person_outline),
                 ),
                 keyboardType: TextInputType.emailAddress,
@@ -72,7 +72,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               TextField(
                 controller: _passwordCtrl,
                 decoration: const InputDecoration(
-                  hintText: 'Password',
+                  hintText: '密码',
                   prefixIcon: Icon(Icons.lock_outline),
                 ),
                 obscureText: true,
@@ -86,12 +86,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   child: _loading
                       ? const SizedBox(height: 20, width: 20,
                           child: CircularProgressIndicator(strokeWidth: 2))
-                      : const Text('Log In'),
+                      : const Text('登录'),
                 ),
               ),
               const SizedBox(height: 16),
               const SizedBox(height: 16),
-              Text('or', style: TextStyle(color: Colors.grey[500])),
+              Text('或', style: TextStyle(color: Colors.grey[500])),
               const SizedBox(height: 16),
               SizedBox(
                 width: double.infinity,
@@ -101,7 +101,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     // For now, key in a test code for dev.
                   },
                   icon: const Icon(Icons.wechat, color: Color(0xFF07C160)),
-                  label: const Text('Continue with WeChat'),
+                  label: const Text('微信登录'),
                   style: OutlinedButton.styleFrom(
                     side: const BorderSide(color: Color(0xFF07C160)),
                     foregroundColor: const Color(0xFF07C160),
@@ -111,7 +111,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               const SizedBox(height: 16),
               TextButton(
                 onPressed: () => context.push('/register'),
-                child: const Text("Don't have an account? Sign up"),
+                child: const Text('没有账号？去注册'),
               ),
               const Spacer(),
             ],

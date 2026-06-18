@@ -11,7 +11,7 @@ class NotificationsScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Notifications'),
+        title: const Text('通知'),
         actions: [
           if (notifications.isNotEmpty)
             PopupMenuButton<String>(
@@ -23,8 +23,8 @@ class NotificationsScreen extends ConsumerWidget {
                 }
               },
               itemBuilder: (_) => const [
-                PopupMenuItem(value: 'mark_read', child: Text('Mark All Read')),
-                PopupMenuItem(value: 'clear', child: Text('Clear All')),
+                PopupMenuItem(value: 'mark_read', child: Text('全部标为已读')),
+                PopupMenuItem(value: 'clear', child: Text('清空全部')),
               ],
             ),
         ],
@@ -34,7 +34,7 @@ class NotificationsScreen extends ConsumerWidget {
               child: Column(mainAxisSize: MainAxisSize.min, children: [
                 Icon(Icons.notifications_none, size: 80, color: Colors.grey[600]),
                 const SizedBox(height: 16),
-                Text('No notifications yet',
+                Text('暂无通知',
                     style: TextStyle(color: Colors.grey[500], fontSize: 16)),
               ]),
             )
@@ -80,7 +80,7 @@ class NotificationsScreen extends ConsumerWidget {
   String _formatTime(DateTime dt) {
     final now = DateTime.now();
     final diff = now.difference(dt);
-    if (diff.inMinutes < 1) return 'just now';
+    if (diff.inMinutes < 1) return '刚刚';
     if (diff.inMinutes < 60) return '${diff.inMinutes}m ago';
     if (diff.inHours < 24) return '${diff.inHours}h ago';
     if (diff.inDays < 7) return '${diff.inDays}d ago';

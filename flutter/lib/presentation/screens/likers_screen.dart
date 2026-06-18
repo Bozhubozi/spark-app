@@ -16,7 +16,7 @@ class LikersScreen extends ConsumerWidget {
     final likers = ref.watch(likersProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Who Liked You')),
+      appBar: AppBar(title: const Text('谁喜欢了你')),
       body: likers.when(
         data: (list) {
           if (list.isEmpty) {
@@ -24,10 +24,10 @@ class LikersScreen extends ConsumerWidget {
               child: Column(mainAxisSize: MainAxisSize.min, children: [
                 Icon(Icons.favorite_border, size: 80, color: Colors.grey[600]),
                 const SizedBox(height: 16),
-                Text('No likes yet',
+                Text('还没有人喜欢你',
                     style: TextStyle(color: Colors.grey[500], fontSize: 16)),
                 const SizedBox(height: 4),
-                Text('Keep swiping to get noticed',
+                Text('继续滑动让更多人看到你',
                     style: TextStyle(color: Colors.grey[600], fontSize: 13)),
               ]),
             );
@@ -100,7 +100,7 @@ class LikersScreen extends ConsumerWidget {
                                 borderRadius: BorderRadius.circular(20)),
                             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                           ),
-                          child: const Text('Like Back',
+                          child: const Text('回赞',
                               style: TextStyle(color: Colors.white, fontSize: 13)),
                         ),
                       ],
@@ -117,11 +117,11 @@ class LikersScreen extends ConsumerWidget {
         ]),
         error: (e, _) => Center(
           child: Column(mainAxisSize: MainAxisSize.min, children: [
-            Text('Error: $e', style: TextStyle(color: Colors.grey[500])),
+            Text('错误：$e', style: TextStyle(color: Colors.grey[500])),
             const SizedBox(height: 8),
             TextButton(
               onPressed: () => ref.invalidate(likersProvider),
-              child: const Text('Retry'),
+              child: const Text('重试'),
             ),
           ]),
         ),
@@ -142,8 +142,8 @@ class LikersScreen extends ConsumerWidget {
       if (resp.data['matched'] == true && context.mounted) {
         ref.read(notificationProvider.notifier).add(AppNotification(
           id: const Uuid().v4(),
-          title: 'New Match!',
-          body: 'You and $name liked each other',
+          title: '新的匹配！',
+          body: '你和 $name 互相喜欢',
         ));
         final roomResp = await api.post('/api/v1/chat/rooms',
             data: {'target_user_id': user.id});

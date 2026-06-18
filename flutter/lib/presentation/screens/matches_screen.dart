@@ -16,7 +16,7 @@ class MatchesScreen extends ConsumerWidget {
     final myId = ref.watch(authProvider).valueOrNull?.id ?? '';
 
     return Scaffold(
-      appBar: AppBar(title: const Text('My Matches')),
+      appBar: AppBar(title: const Text('我的匹配')),
       body: matches.when(
         data: (list) {
           if (list.isEmpty) {
@@ -24,10 +24,10 @@ class MatchesScreen extends ConsumerWidget {
               child: Column(mainAxisSize: MainAxisSize.min, children: [
                 Icon(Icons.favorite_border, size: 80, color: Colors.grey[600]),
                 const SizedBox(height: 16),
-                Text('No matches yet',
+                Text('还没有匹配',
                     style: TextStyle(color: Colors.grey[500], fontSize: 16)),
                 const SizedBox(height: 4),
-                Text('Keep swiping to find your spark',
+                Text('继续滑动寻找你的火花',
                     style: TextStyle(color: Colors.grey[600], fontSize: 13)),
               ]),
             );
@@ -41,7 +41,7 @@ class MatchesScreen extends ConsumerWidget {
               itemBuilder: (_, i) {
                 final match = list[i];
                 final other = match.otherUser(myId);
-                final name = other?.nickname ?? 'User';
+                final name = other?.nickname ?? '用户';
                 final zodiac = zodiacFromBirth(other?.birthDate);
                 final initial = name.isNotEmpty ? name[0].toUpperCase() : '?';
 
@@ -92,7 +92,7 @@ class MatchesScreen extends ConsumerWidget {
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
-                                  'Compatibility ${(match.score * 100).toInt()}%',
+                                  '匹配度 ${(match.score * 100).toInt()}%',
                                   style: TextStyle(
                                       color: _scoreColor(match.score), fontSize: 13),
                                 ),
@@ -126,11 +126,11 @@ class MatchesScreen extends ConsumerWidget {
         ]),
         error: (e, _) => Center(
           child: Column(mainAxisSize: MainAxisSize.min, children: [
-            Text('Error: $e', style: TextStyle(color: Colors.grey[500])),
+            Text('错误：$e', style: TextStyle(color: Colors.grey[500])),
             const SizedBox(height: 8),
             TextButton(
               onPressed: () => ref.invalidate(matchesProvider),
-              child: const Text('Retry'),
+              child: const Text('重试'),
             ),
           ]),
         ),

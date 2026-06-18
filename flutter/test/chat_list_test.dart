@@ -11,8 +11,8 @@ void main() {
     );
     await tester.pump();
 
-    expect(find.text('Spark'), findsOneWidget);
-    expect(find.text('Log In'), findsWidgets);
+    expect(find.text('火花'), findsOneWidget);
+    expect(find.text('登录'), findsWidgets);
   });
 
   testWidgets('RegisterScreen renders form fields', (WidgetTester tester) async {
@@ -21,7 +21,7 @@ void main() {
     );
     await tester.pump();
 
-    expect(find.text('Create Account'), findsOneWidget);
-    expect(find.text('Sign Up'), findsWidgets);
+    expect(find.text('创建账号'), findsOneWidget);
+    expect(find.text('注册'), findsWidgets);
   });
 }

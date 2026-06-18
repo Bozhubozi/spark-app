@@ -59,13 +59,13 @@ class _PersonalityQuizScreenState extends ConsumerState<PersonalityQuizScreen> {
       return Scaffold(
         body: Center(
           child: Column(mainAxisSize: MainAxisSize.min, children: [
-            const Text('No questions available'),
+            const Text('暂无问题'),
             ElevatedButton(
               onPressed: () {
                 Tracker().track('personality_quiz_skip', properties: {'current_question_index': 0});
                 context.go('/match');
               },
-              child: const Text('Skip')),
+              child: const Text('跳过')),
           ]),
         ),
       );
@@ -75,7 +75,7 @@ class _PersonalityQuizScreenState extends ConsumerState<PersonalityQuizScreen> {
     final progress = (_current + 1) / _questions!.length;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Personality Quiz')),
+      appBar: AppBar(title: const Text('性格测试')),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24),
@@ -90,7 +90,7 @@ class _PersonalityQuizScreenState extends ConsumerState<PersonalityQuizScreen> {
                 ),
               ),
               const SizedBox(height: 8),
-              Text('Question ${_current + 1} of ${_questions!.length}',
+              Text('第 ${_current + 1} / 共 ${_questions!.length}',
                   style: TextStyle(color: Colors.grey[500])),
               const Spacer(flex: 2),
               Text(q.questionText,

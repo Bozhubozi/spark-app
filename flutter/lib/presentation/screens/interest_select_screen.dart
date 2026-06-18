@@ -72,7 +72,7 @@ class _InterestSelectScreenState extends ConsumerState<InterestSelectScreen> {
     } catch (_) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Save failed, please retry')),
+          const SnackBar(content: Text('保存失败，请重试')),
         );
       }
     } finally {
@@ -84,17 +84,17 @@ class _InterestSelectScreenState extends ConsumerState<InterestSelectScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pick Your Interests'),
+        title: const Text('选择你的兴趣'),
         actions: [
           if (widget.editMode)
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Cancel'),
+              child: const Text('取消'),
             )
           else
             TextButton(
               onPressed: () => context.push('/onboarding/birthdate'),
-              child: const Text('Skip'),
+              child: const Text('跳过'),
             ),
         ],
       ),
@@ -105,7 +105,7 @@ class _InterestSelectScreenState extends ConsumerState<InterestSelectScreen> {
                 Padding(
                   padding: const EdgeInsets.all(16),
                   child: Text(
-                    widget.editMode ? 'Update your interests' : 'Select at least 3 interests to find your spark',
+                    widget.editMode ? '更新你的兴趣' : '至少选择 3 个兴趣，发现你的火花',
                     style: TextStyle(color: Colors.grey[400], fontSize: 14),
                   ),
                 ),
@@ -132,8 +132,8 @@ class _InterestSelectScreenState extends ConsumerState<InterestSelectScreen> {
                                 child: CircularProgressIndicator(strokeWidth: 2),
                               )
                             : Text(widget.editMode
-                                  ? 'Save (${_selected.length} selected)'
-                                  : 'Continue (${_selected.length} selected)'),
+                                  ? '保存（${_selected.length} 个) '
+                                  : '继续（${_selected.length} 个) '),
                       ),
                     ),
                   ),
@@ -198,21 +198,21 @@ class _InterestSelectScreenState extends ConsumerState<InterestSelectScreen> {
   String _categoryLabel(String cat) {
     switch (cat) {
       case 'entertainment':
-        return 'Entertainment';
+        return '娱乐';
       case 'music':
-        return 'Music';
+        return '音乐';
       case 'gaming':
-        return 'Gaming';
+        return '游戏';
       case 'social':
-        return 'Social';
+        return '社交';
       case 'outdoor':
-        return 'Outdoor';
+        return '户外';
       case 'sports':
-        return 'Sports';
+        return '运动';
       case 'art':
-        return 'Art';
+        return '艺术';
       case 'lifestyle':
-        return 'Lifestyle';
+        return '生活方式';
       default:
         return cat[0].toUpperCase() + cat.substring(1);
     }
